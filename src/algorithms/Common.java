@@ -111,4 +111,7 @@ public class Common implements Algorithm {
 		Common.measure = measure;
 	}
 
+	public static Measure getMeasure() {
+		return measure;
+	}
 }

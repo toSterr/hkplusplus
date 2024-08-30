@@ -18,6 +18,18 @@ public class L2Norm implements Measure {
 	}
 
 	@Override
+	public double distance(DataPoint d1, DataPoint d2) {
+		double distance = 0.0d;
+		double difference;
+		for(int i = 0; i < d1.getCoordinates().length; i++)
+		{
+			difference = d1.getCoordinate(i) - d2.getCoordinate(i);
+			distance += difference*difference;
+		}
+		return Math.sqrt(distance);
+	}
+
+	@Override
 	public double[] updateCenter(DataPoint[] points) {
 		double[] centroid = sumEachDimensionPointsCoordinates(points);
 		centroid = averageSums(points, centroid);

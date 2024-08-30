@@ -623,6 +623,16 @@ public class EM extends Common implements CenterMethod {
 		return root;
 	}
 
+	@Override
+	public Cluster makeCluster(DataPoint[] points, Measure measure) {
+		DataPoint center = calculateAvgPointsCenter(points);
+		Matrix covariance = calculateSampleCovarianceMatrix(points, center);
+		int rootId = Utils.getNextId();
+		Cluster root = new Cluster(points, center, covariance, 1.0d, ColorPalette.getNextColor(), rootId, rootId);
+//		System.out.println(root);
+		return root;
+	}
+
 	private DataPoint calculateAvgPointsCenter(DataPoint[] points) {
 		DataPoint center = new DataPoint(new double[DataPoint.getNumberOfDimensions()], null, "miu", "miu");
 		double newCoordinateVal;

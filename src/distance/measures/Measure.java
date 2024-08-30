@@ -12,6 +12,8 @@ public interface Measure {
 	
 	public double distance(Cluster center, DataPoint d2);
 
+	public double distance(DataPoint d1, DataPoint d2);
+
 	public double[] updateCenter(DataPoint[] points);
 
 	public double calculateClusterisationStatistic(Cluster[] clusters);

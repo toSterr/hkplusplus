@@ -14,7 +14,7 @@ public class LOG_GMMBayesMLE extends GMMBayesMLE implements Measure {
 	
 	@Override
 	public double distance(Cluster cluster, DataPoint point) { //funkcja gestosci rozkladu normalnego (pdf)
-		double covarianceDet = cluster.getCovariance().det();
+		double covarianceDet = cluster.getCovariance().det(); // TODO: we can save det in the cluster object instead of computing it all the time - it is n^3!
 		if(Double.isInfinite(covarianceDet) || Double.isNaN(covarianceDet))
 		{
 			System.out.println("LOG_GMMBayesMLE.distance covarianceDet is not finite! covarianceDet = " + covarianceDet);
@@ -40,7 +40,7 @@ public class LOG_GMMBayesMLE extends GMMBayesMLE implements Measure {
 			System.err.println("Covariance Det: " + covarianceDet);
 			System.exit(1);
 		}
-		covarianceInversion = cluster.getCovariance().inverse();
+		covarianceInversion = cluster.getCovariance().inverse(); // TODO: we can save cov matrix inverse in the cluster object instead of computing it all the time - it is n^3!
 		
 		
 		double firstPartValue = minusHalfOfDimMultipliedByLogOfTWO + minusHalfOfDimMultipliedByLogOfPI - 0.5*Math.log(covarianceDet);

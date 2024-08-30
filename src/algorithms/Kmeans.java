@@ -7,6 +7,8 @@ import data.ClustersAndTheirStatistics;
 import data.DataPoint;
 import data.Parameters;
 
+import java.util.ArrayList;
+
 //TODO: oigarnac kmeans dla flagi wylaczajacej static center!  
 
 public class Kmeans extends Common
@@ -27,7 +29,18 @@ public class Kmeans extends Common
 			newClusters = updateClusterCenters(newClusters);
 			iterationNumber++;
 		}
+		newClusters = removeEmptyClusters(newClusters);
 		return new ClustersAndTheirStatistics(newClusters, measure.calculateClusterisationStatistic(newClusters), true);
+	}
+
+	private Cluster[] removeEmptyClusters(Cluster[] currentClusters) {
+		ArrayList<Cluster> newClusters = new ArrayList<>();
+		for(var cluster: currentClusters) {
+			if(cluster.getPoints().length > 0) {
+				newClusters.add(cluster);
+			}
+		}
+		return newClusters.toArray(new Cluster[newClusters.size()]);
 	}
 
 	private void initialisePointAssignmentTables(Cluster parent) {
@@ -68,7 +81,7 @@ public class Kmeans extends Common
 	
 	private Cluster[] updateClusterCenters(Cluster[] newClusters) 
 	{
-		for(int i = 0; i < newClusters.length-1; i++)//pomijam ostatni klaster, ktory sie nie rusza
+		for(int i = 0; i < newClusters.length; i++)//pomijam ostatni klaster, ktory sie nie rusza
 		{
 			newClusters[i] = centerMethod.updateCenter(newClusters[i], measure);
 		}
@@ -78,13 +91,11 @@ public class Kmeans extends Common
 	private Cluster[] createInitialClusters(int k, Cluster parent) 
 	{
 		DataPoint[] centers = choseSeedPoints(k, parent); //TODO a jakby dystrybulowac seedy NAOKOLO static centra? Na okregu o promieniu jakimstam, tak aby otaczaly one nasz static point?)
-		Cluster[] clusters = new Cluster[k+1];
+		Cluster[] clusters = new Cluster[k];
 		for(int i = 0; i < k; i++)
 		{
 			clusters[i] = new Cluster(null, centers[i], null, parent.getClusterId(), Utils.getNextId());
 		}
-		clusters[k] = new Cluster(null, parent.getCenter(), parent.getColorOnImage(), parent.getClusterId(), parent.getClusterId());
-		clusters[k].setStaticCenter(true);
 		return clusters;
 	}
 	

@@ -180,7 +180,7 @@ public class DataReader {
 		return dimensionNumberAndItsName;
 	}
 	
-	private static DataStatistics calculateDataStatistics(
+	public static DataStatistics calculateDataStatistics(
 			DataPoint[] points, int numberOfDimensions, HashMap<String, Integer> classNameAndItsId) {
 		double[] minValues = new double[numberOfDimensions];
 		double[] maxValues = new double[numberOfDimensions];
@@ -189,7 +189,7 @@ public class DataReader {
 		for(int i = 0; i < numberOfDimensions; i++)
 		{
 			minValues[i] = Double.MAX_VALUE;
-			maxValues[i] = Double.MIN_VALUE;
+			maxValues[i] = Double.NEGATIVE_INFINITY;
 		}
 		
 		for(DataPoint p: points)

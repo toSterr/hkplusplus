@@ -1,11 +1,11 @@
 package data;
 
 import java.awt.Color;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 
 import Jama.Matrix;
 import algorithms.Algorithm;
+import utils.Constans;
 
 public class Cluster {
 	private DataPoint[] points;
@@ -131,27 +131,23 @@ public class Cluster {
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String returnValue = "";
-		returnValue += "Center: " + (this.center == null? "null" : this.center);
-		returnValue += "\nNum. of Pts: " + (this.points == null? "null pts" : this.points.length);
+		returnValue += "Center: " + (this.center == null ? "null" : this.center);
+		returnValue += "\nNum. of Pts: " + (this.points == null ? "null pts" : this.points.length);
 		returnValue += "\nMixing coef.: " + this.mixingCoefficient;
-		returnValue += "\nStatic: " + (this.staticCenter? "true" :  "false");
+		returnValue += "\nStatic: " + (this.staticCenter ? "true" : "false");
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
-		if(this.covariance == null)
-		{
+		if (this.covariance == null) {
 			returnValue += "\nCov. matrix: null";
-		}
-		else
-		{
+		} else {
 			covariance.print(pw, 7, 4);
 			pw.flush();
 			pw.close();
 			returnValue += "\nCov. matrix: " + sw.toString();
 		}
-		returnValue += "\nColour on img.: " + (this.colorOnImage == null? "null" : this.colorOnImage.toString());
+		returnValue += "\nColour on img.: " + (this.colorOnImage == null ? "null" : this.colorOnImage.toString());
 		returnValue += "\nParent Id: " + this.parentId;
 		returnValue += "\nCluster Id: " + this.clusterId;
 		return returnValue;

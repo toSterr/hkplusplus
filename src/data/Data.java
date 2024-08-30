@@ -12,12 +12,12 @@ public class Data {
 	
 	public Data(DataPoint[] points, int numberOfPoints, int numberOfDimensions, DataStatistics dataStats, HashMap<Integer,String> dimensionNumberAndItsName)
 	{
-		System.out.println(numberOfDimensions);
+//		System.out.println(numberOfDimensions);
 		DataPoint.setNumberOfDimensions(numberOfDimensions);
 		
-		System.out.println("Normalising data...");
+//		System.out.println("Normalising data...");
 		this.points = DataNormalisation.normalise(points, dataStats);
-		System.out.println("Normalisation - done.");
+//		System.out.println("Normalisation - done.");
 		
 		this.numberOfPoints = numberOfPoints;
 		this.numberOfDimensions = numberOfDimensions;
